@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="horizontal"
+    android:visibility="visible"
+    android:id="@+id/stepperBar">
+    <!--android:layout_marginTop="@dimen/padding_title"-->
+
+
+    <com.example.stepper.views.StepCircle
+        android:id="@+id/circle_one"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp"
+        android:text="1"
+        />
+
+    <View
+        android:id="@+id/line_one"
+        android:layout_width="76dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="12dp"
+        android:layout_toEndOf="@+id/circle_one"
+        android:background="#bdbdbd" />
+
+    <com.example.stepper.views.StepCircle
+        android:id="@+id/circle_two"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_toEndOf="@+id/line_one"
+        android:text="2"
+        />
+
+    <View
+        android:id="@+id/line_two"
+        android:layout_width="76dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="12dp"
+        android:layout_toEndOf="@+id/circle_two"
+        android:background="#bdbdbd" />
+
+    <com.example.stepper.views.StepCircle
+        android:id="@+id/circle_three"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_toEndOf="@+id/line_two"
+        android:text="3"
+        />
+
+    <View
+        android:id="@+id/line_three"
+        android:layout_width="76dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="12dp"
+        android:layout_toEndOf="@+id/circle_three"
+        android:background="#bdbdbd" />
+
+    <com.example.stepper.views.StepCircle
+        android:id="@+id/circle_four"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_toEndOf="@+id/line_three"
+        android:text="4"
+        />
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/circle_one"
+        android:alpha="0.38"
+        android:fontFamily="@font/roboto_medium"
+        android:tag="text0"
+        android:text="@string/stepper_bar_first_item"
+        android:textColor="@android:color/black"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/circle_two"
+        android:layout_marginStart="-8dp"
+        android:layout_marginTop="0dp"
+        android:layout_toEndOf="@id/line_one"
+        android:alpha="0.38"
+        android:fontFamily="@font/roboto_medium"
+        android:tag="text1"
+        android:text="@string/stepper_bar_second_item"
+        android:textColor="@android:color/black"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/text3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/circle_three"
+        android:layout_marginStart="-5dp"
+        android:layout_toEndOf="@id/line_two"
+        android:alpha="0.38"
+        android:fontFamily="@font/roboto_medium"
+        android:tag="text2"
+        android:text="@string/stepper_bar_third_item"
+        android:textColor="@android:color/black"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/text4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/circle_four"
+        android:layout_marginStart="-12dp"
+        android:layout_toEndOf="@id/line_three"
+        android:alpha="0.38"
+        android:fontFamily="@font/roboto_medium"
+        android:tag="text3"
+        android:text="@string/stepper_bar_fourth_item"
+        android:textColor="@android:color/black"
+        android:textSize="12sp" />
+
+</RelativeLayout>
+
+

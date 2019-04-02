@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="innerCircleFontSize">12sp</dimen>
+    <dimen name="stepTitleActiveFontSize">14sp</dimen>
+    <dimen name="stepTitleInactiveFontSize">12sp</dimen>
+    <dimen name="circleRadius">11dp</dimen>
+</resources>

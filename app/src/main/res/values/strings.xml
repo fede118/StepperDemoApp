@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Stepper</string>
+
+    <!--stepper bar strings-->
+    <string name="stepper_bar_first_item">info</string>
+    <string name="stepper_bar_second_item">delivery</string>
+    <string name="stepper_bar_third_item">review</string>
+    <string name="stepper_bar_fourth_item">checkout</string>
+
+    <!--first step strings-->
+    <string name="first_step_title">Enter your Information</string>
+    <string name="first_step_name">Name</string>
+    <string name="first_step_email">Email</string>
+    <string name="first_step_phone">Phone Number</string>
+    <string name="first_step_zipcode">Zipcode</string>
+
+    <!--second step strings-->
+    <string name="second_step_title">Choose Delivery</string>
+    <string name="second_step_option1">Free shipping</string>
+    <string name="second_step_option2">Two day shipping</string>
+    <string name="second_step_option3">Aparition</string>
+
+    <!--third step strings-->
+    <string name="third_step_title">Review your Information</string>
+
+    <!--fourth step strings-->
+    <string name="fourth_step_title">Thank you for your purchase!</string>
+    <string name="fourth_step_subtitle">Continue shopping!</string>
+
+    <string name="fragment_class_exception">must use StepOneFragment.OnItemSelectedListener</string>
+    <string name="button_continue">CONTINUE</string>
+    <string name="button_back">Back</string>
+    <string name="toast_text_choose_delivery">please choose delivery</string>
+</resources>
