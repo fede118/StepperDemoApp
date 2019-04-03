@@ -1,29 +1,8 @@
 /*
-  Stepper Creado por Federico Cano.
   Éste es un stepper horizontal reutilizable, en este caso cuenta con 4 pasos pero fácilmente se le pueden agregar o quitar
   simplemente crear una clase java y layout, agregar el caso en el switch statement. (si necesita se puede agregar parámentros
   en el switch, como en el caso de los ejemplos, pero sí es sólo un layout informativo solo bastaría con agregar el switch case)
   a su vez hay que agregar o eliminar un círculo y título del Stepper_layout, que es el status bar del paso en el que estamos.
-
-  Pasos realizados:
-  Primero analice la guia de material design y vi ejemplos de steppers,
-  luego realice un bozeto de como queria que se viera la app, una guia
-  luego realice el layout de la status bar Stepper_layout
-  luego comence a escribir los diferentes fragmentos con informacion dummy (a partir del segundo fragmento fui testeando la
-  funcionalidad del boton "continue" y "back" al igual que el retroceso del celular
-  luego de tener los fragmentos y que los botones fueran hacia adelante y hacia atras cambiando el status bar
-  agregué algo mas de elementos a todos los fragments y comunicación con la MainActivity para lograr interacción entre ellos
-  Finalmente hice un breve periodo de pruba arreglando algunos bugs o implementando mejorias
-
-  Las clases utilizadas son fragmentos por cada paso que se necesite con su respectivo layout (IMPORTANTE: he realizado en otra ocasión un solo fragmento
-  que llamaba inflate a distintos layouts, minimizando bastante la cantidad de clases, pero al fin de ser reutilizable me parece mejor tener mas clases
-  donde cada paso tiene su logica y para modificar un paso solo tomamos ese fragmento o ese layout)
-  Los layouts utilizados como decía son los del statusBar y los de cada paso
-  Los recursos en este caos decidi utilizar recursos predeterminados de android para los circulos indicadores de cada paso, los recursos de strings
-  para el texto en botones que se repiten en cada fragment, etc.
-
-  Al final del codigo la funcion helper updateStatusBar actualiza la informacion de la status bar de acuerdo al paso en el que nos encontramos
-  cambiando el tamaño del texto y color al indicado en la guia de material design
 
   IMPORTANTE:
   Estoy trabajando para implementar una stepsBar dinamica, que cree la cantidad de pasos de acuerdo la informacion que ingresemos.
@@ -31,12 +10,10 @@
   Para eso estoy implementando StepBarElement que seria basicamente el circulo con numero de paso y el titulo
   luego podria hacerse un loop sobre cada string en el array creando un elemento con ese titulo y actualizando el numero de paso
 
-
 */
 
 package com.example.stepper;
 
-import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -44,13 +21,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.stepper.views.StepCircle;
-import com.example.stepper.views.StepsBarElement;
 
 import java.util.HashMap;
 
@@ -72,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements StepOneFragment.O
 
     private int currStep = 0;
 
-    StepOneFragment stepOneFragment;
+    private StepOneFragment stepOneFragment;
 
     private Button backBtn;
 
@@ -95,16 +69,16 @@ public class MainActivity extends AppCompatActivity implements StepOneFragment.O
         stepOneFragment = new StepOneFragment();
         startFirstFragment(stepOneFragment);
 
-//        iniciando un elemento del stepBar como prueba para implementar steps dinamicos
-//        relativeLayout = findViewById(R.id.relativeLayout);
-//        StepsBarElement stepBarElement = new StepsBarElement(this);
-//        stepBarElement.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 200));
-//        relativeLayout.addView(stepBarElement);
+/*        TODO: crear elemento del stepBar como prueba para implementar steps dinamicos
+        relativeLayout = findViewById(R.id.relativeLayout);
+        StepsBarElement stepBarElement = new StepsBarElement(this);
+        stepBarElement.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 200));
+        relativeLayout.addView(stepBarElement);
 
-//        prueba de 2 elementos:
-//        StepsBarElement stepsBarEl2 = new StepsBarElement(this);
-//        stepsBarEl2.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 200));
-//        relativeLayout.addView(stepsBarEl2);
+        prueba de 2 elementos:
+        StepsBarElement stepsBarEl2 = new StepsBarElement(this);
+        stepsBarEl2.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 200));
+        relativeLayout.addView(stepsBarEl2); */
 
     }
 
@@ -182,10 +156,10 @@ public class MainActivity extends AppCompatActivity implements StepOneFragment.O
         if (text.equals(DONE)) restart();
     }
 
-//    en caso de que se apriete el boton atras
-//        si estamos a partir del 2do paso retrocedemos al paso anterior
-//        en caso de estar en el primer paso siempre se hace invisible boton "back"
-//       el boton continue en el ultimo paso cambia a submit, si volvemos atras en esa instancia tiene que volver a decir continue
+/*    en caso de que se apriete el boton atras
+        si estamos a partir del 2do paso retrocedemos al paso anterior
+        en caso de estar en el primer paso siempre se hace invisible boton "back"
+       el boton continue en el ultimo paso cambia a submit, si volvemos atras en esa instancia tiene que volver a decir continue */
     @Override
     public void onBackPressed() {
         if (currStep > 0) currStep--;
@@ -197,8 +171,8 @@ public class MainActivity extends AppCompatActivity implements StepOneFragment.O
 
         updateStepsBar(currStep,circles,texts);
 
-//        y finalmente cuando retrocedemos queremos sacar del stack la ultima entry (pop)
-//        a menos que solo quede el paso 1, en ese caso se cierra la app (default on back pressed)
+/*       y finalmente cuando retrocedemos queremos sacar del stack la ultima entry (pop)
+         a menos que solo quede el paso 1, en ese caso se cierra la app (default on back pressed) */
         int count = getSupportFragmentManager().getBackStackEntryCount();
         if (count > 1) getSupportFragmentManager().popBackStack();
         else super.onBackPressed();
@@ -211,10 +185,10 @@ public class MainActivity extends AppCompatActivity implements StepOneFragment.O
         else onBackPressed();
     }
 
-//    restart, to be used after finishing steps:
-//        eleminar los elementos del backstack
-//        eleminar el stepOne creado en onCreate ya que hasta esta altura guarda la informacion ingresada
-//        y creamos un StepOneFragment para que todos los inputs esten limpios
+/*   restart, to be used after finishing steps:
+        eleminar los elementos del backstack
+        eleminar el stepOne creado en onCreate ya que hasta esta altura guarda la informacion ingresada
+        y creamos un StepOneFragment para que todos los inputs esten limpios */
     private void restart() {
         getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         getSupportFragmentManager().beginTransaction().detach(stepOneFragment).commit();

@@ -1,6 +1,9 @@
+//TODO:
 // clase elemento de la stepsBar para hacerlo mas reutilizable
 // (si cada elemento es un objeto, si sabemos cuantos pasos queremos, podemos crear la cantidad
 // de pasos en la barra que necesitamos y no que sea hardcoded.
+
+// todavia en desarrollo!!!
 
 package com.example.stepper.views;
 
@@ -19,8 +22,8 @@ public class StepsBarElement extends View {
     private Paint paintCircle;
     private Paint paintStepTitleText;
 
-    // si el elemento esta activo o no (not setup yet).
-    public boolean active = false;
+    //Todo: si el elemento esta activo o no (not setup yet).
+//    public boolean active = false;
 
     public StepsBarElement(Context context) {
         super(context);
