@@ -39,6 +39,7 @@ public class StepTwoFragment extends Fragment {
 
         final RadioGroup radioGroup = view.findViewById(R.id.radioGroup);
 
+//        idem step one, al apretar continue manda la opcion elegida a MainActivity
         Button continueBtn = view.findViewById(R.id.continueBtn2);
         continueBtn.setOnClickListener(new View.OnClickListener() {
             @Override

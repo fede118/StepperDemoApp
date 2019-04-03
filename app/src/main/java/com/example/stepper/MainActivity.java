@@ -156,10 +156,9 @@ public class MainActivity extends AppCompatActivity implements StepOneFragment.O
         if (text.equals(DONE)) restart();
     }
 
-/*    en caso de que se apriete el boton atras
-        si estamos a partir del 2do paso retrocedemos al paso anterior
-        en caso de estar en el primer paso siempre se hace invisible boton "back"
-       el boton continue en el ultimo paso cambia a submit, si volvemos atras en esa instancia tiene que volver a decir continue */
+/*    si estamos a partir del 2do paso retrocedemos al paso anterior
+      en caso de estar en el primer paso siempre se hace invisible boton "back"
+      el boton continue en el ultimo paso cambia a submit, si volvemos atras en esa instancia tiene que volver a decir continue */
     @Override
     public void onBackPressed() {
         if (currStep > 0) currStep--;
@@ -181,7 +180,6 @@ public class MainActivity extends AppCompatActivity implements StepOneFragment.O
 //    si apretamos back en el ultimo paso (donde ya se confirmo la orden volvemos a empezar)
     public void backBtn (View view) {
         if (currStep == 3) restart();
-//        sino la misma funcionalidad que apretar atras
         else onBackPressed();
     }
 

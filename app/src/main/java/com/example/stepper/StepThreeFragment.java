@@ -32,6 +32,7 @@ public class StepThreeFragment extends Fragment {
         }
     }
 
+//    a partir de los argumentos en el Bundle de los pasos 1 y 2 muestra la informacion
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -53,7 +54,7 @@ public class StepThreeFragment extends Fragment {
         TextView delivery = view.findViewById(R.id.deliveryTextView);
         delivery.setText(String.format("Delivery: %s", args.getString(MainActivity.DELIVERY)));
 
-
+//      al apretar continue muestra un AlertDialog simulando ser una compra o algo similar
         Button continueBtn = view.findViewById(R.id.continueBtn3);
         continueBtn.setOnClickListener(new View.OnClickListener() {
             @Override

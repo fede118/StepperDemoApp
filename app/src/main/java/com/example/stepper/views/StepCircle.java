@@ -1,10 +1,9 @@
+// Custom view circulo con numero adentro que se muestra en la StepsBar
 package com.example.stepper.views;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
@@ -30,6 +29,7 @@ public class StepCircle extends View {
 
         int[] set = {android.R.attr.text};
 
+//        attributo text puesto en el layout.xml
         TypedArray attrArray = context.obtainStyledAttributes(attrs, set);
         CharSequence text = attrArray.getText(0);
         attrText = text.toString();

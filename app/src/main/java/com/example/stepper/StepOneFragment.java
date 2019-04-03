@@ -47,6 +47,7 @@ public class StepOneFragment extends Fragment {
         phoneEditText = view.findViewById(R.id.phoneEditText);
         zipEditText = view.findViewById(R.id.zipEditText);
 
+//        al clickear continue checkear que todos los campos esten comp;etos o mandar a MainActivity via interface listener
         Button continueBtn = view.findViewById(R.id.continueBtn);
         continueBtn.setOnClickListener(new View.OnClickListener() {
             @Override
