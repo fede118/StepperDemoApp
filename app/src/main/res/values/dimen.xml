@@ -3,5 +3,11 @@
     <dimen name="innerCircleFontSize">12sp</dimen>
     <dimen name="stepTitleActiveFontSize">14sp</dimen>
     <dimen name="stepTitleInactiveFontSize">12sp</dimen>
-    <dimen name="circleRadius">11dp</dimen>
+    <dimen name="circleRadius">12dp</dimen>
+
+    <dimen name="navBarElemHeight">50dp</dimen>
+    <dimen name="navBarElemWidtht">60dp</dimen>
+
+    <dimen name="lineBetweenStepsHeight">1dp</dimen>
+    <dimen name="lineBetweenStepsLength">40dp</dimen>
 </resources>

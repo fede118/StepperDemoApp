@@ -14,17 +14,16 @@
 
 package com.example.stepper;
 
-import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
-
-import com.example.stepper.views.StepCircle;
+import android.widget.LinearLayout;
 
 import java.util.HashMap;
 
@@ -41,8 +40,8 @@ public class MainActivity extends AppCompatActivity implements StepOneFragment.O
     public static final String DELIVERY = "delivery";
 
 //    stepsBar elements
-    private int[] circles = {R.id.circle_one, R.id.circle_two, R.id.circle_three, R.id.circle_four};
-    private int[] texts = {R.id.text1, R.id.text2, R.id.text3, R.id.text4};
+//    private int[] circles = {R.id.circle_one, R.id.circle_two, R.id.circle_three, R.id.circle_four};
+//    private int[] texts = {R.id.text1, R.id.text2, R.id.text3, R.id.text4};
 
     private int currStep = 0;
 
@@ -55,8 +54,9 @@ public class MainActivity extends AppCompatActivity implements StepOneFragment.O
 //    second step data
     private String stepTwoOptionChosen;
 
-//    para probar stepBar dinamico
-//    private RelativeLayout relativeLayout;
+    LinearLayout linearLayout;
+    StepsNavBar stepsNavBar;
+    private String[] stepsNames = {"info", "delivery", "review", "done"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,21 +65,15 @@ public class MainActivity extends AppCompatActivity implements StepOneFragment.O
 
         backBtn = findViewById(R.id.backBtn);
 
+        linearLayout = findViewById(R.id.include);
+        linearLayout.setOrientation(LinearLayoutCompat.HORIZONTAL);
+        stepsNavBar = new StepsNavBar(this, linearLayout, stepsNames);
+        stepsNavBar.create();
+
+
 //        init first step
         stepOneFragment = new StepOneFragment();
         startFirstFragment(stepOneFragment);
-
-/*        TODO: crear elemento del stepBar como prueba para implementar steps dinamicos
-        relativeLayout = findViewById(R.id.relativeLayout);
-        StepsBarElement stepBarElement = new StepsBarElement(this);
-        stepBarElement.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 200));
-        relativeLayout.addView(stepBarElement);
-
-        prueba de 2 elementos:
-        StepsBarElement stepsBarEl2 = new StepsBarElement(this);
-        stepsBarEl2.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 200));
-        relativeLayout.addView(stepsBarEl2); */
-
     }
 
 //    iniciar el primer paso (cree un metodo para utilizarlo en el onCreate y cuando se necesita restartear la app, al final del proceso)
@@ -88,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements StepOneFragment.O
         ft.add(R.id.placeholder, fragment).commit();
 
         currStep = 0;
-        updateStepsBar(currStep, circles, texts);
+        stepsNavBar.setActiveStep(currStep);
         backBtn.setVisibility(View.INVISIBLE);
     }
 
@@ -123,8 +117,8 @@ public class MainActivity extends AppCompatActivity implements StepOneFragment.O
             default:
 
         }
-//        luego de cambiar el fragmento actualizar la barra con el paso activo y los colores y tamaños segun MaterialDesign
-        updateStepsBar(currStep, circles, texts);
+
+        stepsNavBar.setActiveStep(currStep);
     }
 
 //    recibiendo la informacion del primer paso y guardandola en userData
@@ -156,22 +150,16 @@ public class MainActivity extends AppCompatActivity implements StepOneFragment.O
         if (text.equals(DONE)) restart();
     }
 
-/*    si estamos a partir del 2do paso retrocedemos al paso anterior
-      en caso de estar en el primer paso siempre se hace invisible boton "back"
-      el boton continue en el ultimo paso cambia a submit, si volvemos atras en esa instancia tiene que volver a decir continue */
+
     @Override
     public void onBackPressed() {
-        if (currStep > 0) currStep--;
+        if (currStep > 0 && currStep != 3) currStep--;
         if (currStep == 0) backBtn.setVisibility(View.INVISIBLE);
-        if (currStep == 2) {
-            Button continueBtn = findViewById(R.id.continueBtn);
-            continueBtn.setText(R.string.button_continue);
-        }
+        if (currStep == 3) restart();
 
-        updateStepsBar(currStep,circles,texts);
+        stepsNavBar.setActiveStep(currStep);
 
-/*       y finalmente cuando retrocedemos queremos sacar del stack la ultima entry (pop)
-         a menos que solo quede el paso 1, en ese caso se cierra la app (default on back pressed) */
+//      si retrocedemos y no estamos en el primer paso (0) hace pop al backstack y sino retroceso normal
         int count = getSupportFragmentManager().getBackStackEntryCount();
         if (count > 1) getSupportFragmentManager().popBackStack();
         else super.onBackPressed();
@@ -183,14 +171,11 @@ public class MainActivity extends AppCompatActivity implements StepOneFragment.O
         else onBackPressed();
     }
 
-/*   restart, to be used after finishing steps:
-        eleminar los elementos del backstack
-        eleminar el stepOne creado en onCreate ya que hasta esta altura guarda la informacion ingresada
-        y creamos un StepOneFragment para que todos los inputs esten limpios */
+//     limpia backstack, elimina el stepOne creado y crea uno nuevo (limpia los inputs)
     private void restart() {
         getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
         getSupportFragmentManager().beginTransaction().detach(stepOneFragment).commit();
-        startFirstFragment(new StepOneFragment());
+        startFirstFragment(stepOneFragment = new StepOneFragment());
     }
 
 //    change fragment Helper
@@ -198,34 +183,6 @@ public class MainActivity extends AppCompatActivity implements StepOneFragment.O
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.placeholder, fragment).addToBackStack(null);
         ft.commit();
-    }
-
-
-//    setting size and color according to material design guide
-    private void updateStepsBar (int currStep, int[] circles, int[] texts) {
-        for (int i = 0; i < circles.length; i++) {
-//        para cada elemento del stepBar:
-            StepCircle circle  = findViewById(circles[i]);
-            TextView text = findViewById(texts[i]);
-
-////          si el elemento ya paso:
-            if (i < currStep) {
-                text.setTextSize(12);
-                text.setAlpha(0.38f);
-
-            } else if (i == currStep) {
-                circle.setCircleColor(getColor(R.color.colorPrimary));
-
-                text.setAlpha(0.87f);
-                text.setTextSize(14);
-            } else {
-//                MaterialDesign inactive circle 38% black
-                circle.setCircleColor(Color.argb(96,0,0,0));
-
-                text.setTextSize(12);
-                text.setAlpha(0.38f);
-            }
-        }
     }
 }
 

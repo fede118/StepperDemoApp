@@ -7,9 +7,4 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-    <declare-styleable name="StepCircle">
-        <attr name="circle_color" format="color"/>
-        <attr name="circle_active" format="boolean"/>
-    </declare-styleable>
-
 </resources>

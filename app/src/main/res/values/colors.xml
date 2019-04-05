@@ -3,4 +3,8 @@
     <color name="colorPrimary">#2196f3</color>
     <color name="colorPrimaryDark">#1976d2</color>
     <color name="colorAccent">#000000</color>
+
+    <color name="inactiveStepGray">#5EFFFFFF</color> <!-- alpha 94/255 y black (alpha =36%) -->
+    <color name="activeStepGray">#DDFFFFFF</color> <!-- alpha 221/255 y black (alpha =86%) -->
+
 </resources>
