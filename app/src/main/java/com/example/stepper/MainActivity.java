@@ -1,17 +1,3 @@
-/*
-  Éste es un stepper horizontal reutilizable, en este caso cuenta con 4 pasos pero fácilmente se le pueden agregar o quitar
-  simplemente crear una clase java y layout, agregar el caso en el switch statement. (si necesita se puede agregar parámentros
-  en el switch, como en el caso de los ejemplos, pero sí es sólo un layout informativo solo bastaría con agregar el switch case)
-  a su vez hay que agregar o eliminar un círculo y título del Stepper_layout, que es el status bar del paso en el que estamos.
-
-  IMPORTANTE:
-  Estoy trabajando para implementar una stepsBar dinamica, que cree la cantidad de pasos de acuerdo la informacion que ingresemos.
-  simplemente creando un string [] con los titulos o nombres de los steps crearia la cantidad que necesitamos.
-  Para eso estoy implementando StepBarElement que seria basicamente el circulo con numero de paso y el titulo
-  luego podria hacerse un loop sobre cada string en el array creando un elemento con ese titulo y actualizando el numero de paso
-
-*/
-
 package com.example.stepper;
 
 import android.support.v4.app.Fragment;
@@ -39,12 +25,13 @@ public class MainActivity extends AppCompatActivity implements StepOneFragment.O
     public static final String ZIPCODE = "zipcode";
     public static final String DELIVERY = "delivery";
 
-//    stepsBar elements
-//    private int[] circles = {R.id.circle_one, R.id.circle_two, R.id.circle_three, R.id.circle_four};
-//    private int[] texts = {R.id.text1, R.id.text2, R.id.text3, R.id.text4};
+//    stepsBar:
+    LinearLayout linearLayout;
+    StepsNavBar stepsNavBar;
+    private String[] stepsNames = {"info", "delivery", "review", "done"};
 
+//    to init
     private int currStep = 0;
-
     private StepOneFragment stepOneFragment;
 
     private Button backBtn;
@@ -53,10 +40,6 @@ public class MainActivity extends AppCompatActivity implements StepOneFragment.O
     private HashMap<String,String> userData;
 //    second step data
     private String stepTwoOptionChosen;
-
-    LinearLayout linearLayout;
-    StepsNavBar stepsNavBar;
-    private String[] stepsNames = {"info", "delivery", "review", "done"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +52,6 @@ public class MainActivity extends AppCompatActivity implements StepOneFragment.O
         linearLayout.setOrientation(LinearLayoutCompat.HORIZONTAL);
         stepsNavBar = new StepsNavBar(this, linearLayout, stepsNames);
         stepsNavBar.create();
-
 
 //        init first step
         stepOneFragment = new StepOneFragment();
