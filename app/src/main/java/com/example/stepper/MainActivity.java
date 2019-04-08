@@ -15,7 +15,7 @@ import java.util.HashMap;
 
 
 public class MainActivity extends AppCompatActivity implements StepOneFragment.OnItemSelectedListener, StepTwoFragment.OnItemSelectedListener, StepThreeFragment.OnItemSelectedListener, StepFourFragment.OnItemSelectedListener {
-//    Constants
+//   data management constants
     public static final String CONTINUE = "continue";
     public static final String DONE = "done";
     public static final String BACK = "back";
@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements StepOneFragment.O
 //    to init
     private int currStep = 0;
     private StepOneFragment stepOneFragment;
-
     private Button backBtn;
 
 //    first step data
@@ -137,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements StepOneFragment.O
     public void onBackPressed() {
         if (currStep > 0 && currStep != 3) currStep--;
         if (currStep == 0) backBtn.setVisibility(View.INVISIBLE);
-        if (currStep == 3) restart();
+        if (currStep == stepsNames.length - 1) restart();
 
         stepsNavBar.setActiveStep(currStep);
 

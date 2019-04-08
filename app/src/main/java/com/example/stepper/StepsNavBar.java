@@ -8,8 +8,9 @@ import android.widget.LinearLayout;
 
 import com.example.stepper.views.StepsBarElement;
 
-public class StepsNavBar {
-    LinearLayout linearLayout;
+// package private
+class StepsNavBar {
+    private LinearLayout linearLayout;
     private String[] titles;
     private Context context;
 
@@ -17,20 +18,24 @@ public class StepsNavBar {
     private static final int HEIGHT = R.dimen.navBarElemHeight;
 
 
-    public StepsNavBar(Context context, LinearLayout linearLayout, String[] stepsTitles) {
+    StepsNavBar(Context context, LinearLayout linearLayout, String[] stepsTitles) {
         this.titles = stepsTitles;
         this.linearLayout = linearLayout;
         this.context = context;
     }
 
 //    crea un elemento con una linea entremedio por cada titulo en string[]
-    public void create () {
+    void create() {
+        int lineWidth = (int) context.getResources().getDimension(R.dimen.lineBetweenStepsLength);
+        int lineheight = (int) context.getResources().getDimension(R.dimen.lineBetweenStepsHeight);
+        if (titles.length > 4) {
+            lineWidth -= lineWidth / 2;
+        }
         for (int i = 0; i < titles.length; i++) {
             if (i > 0) {
                 //linea entremedio
                 View view = new View(context);
-                int lineWidth = (int) context.getResources().getDimension(R.dimen.lineBetweenStepsLength);
-                int lineheight = (int) context.getResources().getDimension(R.dimen.lineBetweenStepsHeight);
+
                 view.setBackgroundColor(Color.argb(96,0,0,0));
                 linearLayout.addView(view, lineWidth, lineheight);
             }
@@ -44,7 +49,8 @@ public class StepsNavBar {
         }
     }
 
-    public void setActiveStep (int index) {
+    void setActiveStep(int index) {
+//        index es el paso por el que vamos en main activity, este no va a coincidir con el child element porque tenemos las lineas entre objetos
         int currStep = 0;
         for (int i = 0; i < linearLayout.getChildCount(); i++) {
             StepsBarElement stepsBarElement = null;
@@ -68,7 +74,7 @@ public class StepsNavBar {
                      stepsBarElement.setTitleAlpha(96);
                  }
 
-                 currStep++;
+                 currStep++; // currStep seria el paso por que vamos ya que solo lo aumentamos en los elementos que no sean la linea
              }
         }
     }
